@@ -1,1 +1,1 @@
-add_library(subtracter subtracter.cpp)
+add_library(subtracter_lib subtracter.cpp subtracter.h)

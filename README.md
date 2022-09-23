@@ -1,59 +1,41 @@
-## CMake
+## CMake 
 
-### commands :
-
-```
-cmake . // Specifies path to CMakeLists.txt, assumes build is current folder
-cmake -S . // same as cmake .
-cmake -S . -B build // CMakeLists.txt is in current folder, build is in build/ folder
-```
-
-Two ways of compiling the files in make after building to `build` folder : 
-
-1 :cd 
-```
-cd build/
-make
-```
-
-2 :
-```
-make -C build/
-```
-
-## Meaning of code in `CMakeLists.txt`
-
-* `project(rens)` -> defines the project name
-* `add_executable(rens main.cpp a.cpp b.cpp)` -> Add an executable for all the files mentioned in the list
-* `add_subdirectory(folder_name)` -> Adds a subdirectory to the build. The folder_name specifies the directory in which the source CMakeLists.txt and code files are located.
-
-## Without cmake, commands would look like:
-
-* `g++ main.cpp adder/adder.cpp`
-
-Or,
-
-* `g++ -c Adder/adder.cpp ; g++ -c Subtracter/subtracter.cpp ; g++ -c main.cpp ; g++ *.o -o rens`
-
-## Notes:
-
-* Let's say the project structure is so:
+### Adding Submodules : 
 
 ```
-.
-├── Adder
-│   ├── adder.cpp
-│   ├── adder.h
-│   └── CMakeLists.txt
-├── CMakeLists.txt
-├── main.cpp
-└── Subtracter
-    ├── CMakeLists.txt
-    ├── subtracter.cpp
-    └── subtracter.h
+git submodule add https://github.com/glfw/glfw.git external/glfw
 ```
 
-    * cmake is to be executed only if we add more files.
-    * If we change `subtracter.cpp` and execute make, only that subdirectory will get built once again.
-    * It's efficient in that manner.
+* The addition of a submodule tells git that I'll be using these files, but they are a part of another git repository, and hence link it to that repository instead of adding external files.
 
+* Installed
+`libxinerama-dev libxcursor libxi-dev` for glfw library
+
+## Options
+
+There are options in the glfw library for various stuff, such as building documentation.
+`option(GLFW_BUILD_DOCS "Build the GLFW documentation" ON)`
+It is on by default.
+We can choose to turn that off, as so:
+`cmake -DGLFW_BUILD_DOCS=OFF -S . -B build/`
+
+
+## `target_include_directories`
+
+If you want to include certain directories for header files, like so:
+
+`#include <adder.h>`
+But adder.h is located in `adder/` folder.
+We use `target_include_directories` command : 
+
+`target_include_directories()`
+
+An alternative : 
+`#include "Adder/adder.h"` without `target_include_directories`
+
+## Cloning a repo with submodules : 
+
+```
+git clone <link-to-repo>
+git submodule update --init --recursive
+```
