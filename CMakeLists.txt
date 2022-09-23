@@ -1,9 +1,12 @@
 cmake_minimum_required(VERSION 3.19.1)
 
-project(rens)
+project(rens VERSION 1.0)
+
+configure_file(RENSConfig.h.in RENSConfig.h)
 
 add_executable(${PROJECT_NAME} main.cpp)
 
+target_include_directories(${PROJECT_NAME} PUBLIC ${PROJECT_BINARY_DIR})
 
 # DOWNLOAD ALL THE SUBMODULES : 
 find_package(Git QUIET)

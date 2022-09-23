@@ -2,8 +2,11 @@
 #include <adder.h>
 #include <subtracter.h>
 #include <GLFW/glfw3.h>
+#include <RENSConfig.h>
 
-int main() {
+int main(int argc, char* argv[]) {
+    std::cout << argv[0] << " Version " << RENS_VERSION_MAJOR << "." << RENS_VERSION_MINOR << '\n';
+
     std::cout << "Hello from CMAKE ! " << std::endl;
     std::cout << add(43.1, 56.54) << std::endl;
     std::cout << subtract(43.1, 56.54) << std::endl;
